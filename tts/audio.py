@@ -1,7 +1,7 @@
 import pyaudio
 import wave
 import queue
-from vad import VoiceActivityDetection
+from tts.vad import VoiceActivityDetection
 
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
@@ -37,7 +37,6 @@ def record_audio():
             if not started and contain_speech:
                 started = True
                 print("Listening to speech...")
-                
             if started and not contain_speech:
                 break
 
@@ -48,12 +47,12 @@ def record_audio():
     print("Done recording.")
 
     # Save the recorded frames to a WAV file
-    if final_frames:
-        with wave.open('output.wav', 'wb') as wf:
-            wf.setnchannels(CHANNELS)
-            wf.setsampwidth(audio.get_sample_size(FORMAT))
-            wf.setframerate(RATE)
-            wf.writeframes(b''.join(frames))
+    # if final_frames:
+    #     with wave.open('output.wav', 'wb') as wf:
+    #         wf.setnchannels(CHANNELS)
+    #         wf.setsampwidth(audio.get_sample_size(FORMAT))
+    #         wf.setframerate(RATE)
+    #         wf.writeframes(b''.join(frames))
 
     stream.stop_stream()
     stream.close()
